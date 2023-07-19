@@ -1,4 +1,5 @@
 ### Hola estoy aqui 👋
+### Soy estudainte de ingenriea de software este es mi repositorio personal
 
 <!--
 **Apricolt/Apricolt** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
