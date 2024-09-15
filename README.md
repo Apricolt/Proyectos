@@ -1,4 +1,4 @@
-### Hola estoy aqui 👋
+
 ### Soy estudainte de ingenriea de software este es mi repositorio personal
 
 <!--
