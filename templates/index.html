@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmacia</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Farmacia - Gestión de Turnos y Medicamentos</h1>
+
+        <h2>Asignar Turno</h2>
+        <form action="{{ url_for('assign_turn') }}" method="POST">
+            <label for="customer_name">Nombre del Cliente:</label>
+            <input type="text" id="customer_name" name="customer_name" required>
+            
+            <label for="customer_id">Cédula del Cliente:</label>
+            <input type="text" id="customer_id" name="customer_id" required>
+            
+            <button type="submit">Asignar Turno</button>
+        </form>
+
+        <h2>Clientes en Espera</h2>
+        <ul id="turns_list">
+            {% for turn in turns %}
+                <li>{{ turn }}</li>
+            {% else %}
+                <li>No hay turnos en espera.</li>
+            {% endfor %}
+        </ul>
+
+        <h2>Entregar Medicamentos</h2>
+        <form action="{{ url_for('deliver_medications') }}" method="POST">
+            <label for="turn_number">Número del Turno:</label>
+            <input type="number" id="turn_number" name="turn_number" required>
+            
+            <label for="medications">Nombre de los Medicamentos:</label>
+            <div id="medication_fields">
+                <input type="text" name="medications" required>
+            </div>
+            <button type="button" onclick="addMedicationField()">Agregar Otro Medicamento</button>
+            <button type="button" onclick="undoLastMedication()">Deshacer Último Medicamento</button>
+            <button type="submit">Finalizar Entrega</button>
+        </form>
+
+        <h2>Medicamentos Entregados</h2>
+        <ul id="deliveries_list">
+            {% for delivery in deliveries %}
+                <li>{{ delivery }}</li>
+            {% else %}
+                <li>No se han entregado medicamentos.</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <script>
+        function addMedicationField() {
+            const container = document.getElementById('medication_fields');
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.name = 'medications';
+            container.appendChild(input);
+        }
+
+        function undoLastMedication() {
+            const container = document.getElementById('medication_fields');
+            const inputs = container.getElementsByTagName('input');
+            if (inputs.length > 0) {
+                container.removeChild(inputs[inputs.length - 1]);
+            }
+        }
+    </script>
+</body>
+</html>
